@@ -6,8 +6,6 @@ const cheerio = require('cheerio')
 const app = express()
 const port = process.env.PORT || 3000;
 
-
-
 let cotacao = "";
 
 app.get("/:fii", async (req, res) => {
@@ -16,13 +14,10 @@ app.get("/:fii", async (req, res) => {
     nomeDoFii = nomeDoFii.toUpperCase();
 
     let div = await buscarDividendo(nomeDoFii)
-
     
     res.json({'fii': nomeDoFii,'dividendo': div,'cotacao': cotacao});
 
 })
-
-
 
 
 
@@ -73,7 +68,6 @@ function validarFii(nomeFii){
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
-
 
 
 app.listen(port, (erro) =>{
