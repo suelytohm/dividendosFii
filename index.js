@@ -18,7 +18,8 @@ app.get("/:fii", async (req, res) => {
     let div = await buscarDividendo(nomeDoFii)
 
     
-    res.json({ 'fii': nomeDoFii,'dividendo': div,'cotacao': cotacao});
+    res.json({'fii': nomeDoFii,'dividendo': div,'cotacao': cotacao});
+
 })
 
 
