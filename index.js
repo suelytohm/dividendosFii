@@ -12,7 +12,6 @@ app.get("/:fii", async (req, res) => {
 
     let nomeDoFii = req.params.fii
     nomeDoFii = nomeDoFii.toUpperCase();
-
     let div = await buscarDividendo(nomeDoFii)
     
     res.json({'fii': nomeDoFii,'dividendo': div,'cotacao': cotacao});
@@ -62,7 +61,6 @@ function validarFii(nomeFii){
     }
     
 }
-
 
 
 function replaceAll(str, find, replace) {
