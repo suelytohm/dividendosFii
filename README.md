@@ -1,8 +1,8 @@
 # DividendosFii
-API que faz scrapping no site www.fundsexplorer.com e exibe as principais informações sobre determinado fundo de investimento. 
+API simples que faz scrapping no site www.fundsexplorer.com, exibindo as principais informações sobre determinado fundo de investimento passado através da rota. 
 Tais como cotação atual, último dividendo, Divdend Yeld, entre outros.
 
 Demo:
-Ex1.: https://dividendosfiis.herokuapp.com/visc11
-Ex2.: https://dividendosfiis.herokuapp.com/irdm11
-Ex3.: https://dividendosfiis.herokuapp.com/xplg11
+1. https://dividendosfiis.herokuapp.com/visc11
+2. https://dividendosfiis.herokuapp.com/irdm11
+3. https://dividendosfiis.herokuapp.com/xplg11
