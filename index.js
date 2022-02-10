@@ -4,32 +4,26 @@ const cheerio = require('cheerio')
 
 
 const app = express()
-let cotacao = "";
 const port = process.env.PORT || 3000;
 
-function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(find, 'g'), replace);
-  }
+
+
+let cotacao = "";
 
 app.get("/:fii", async (req, res) => {
+
     let nomeDoFii = req.params.fii
     nomeDoFii = nomeDoFii.toUpperCase();
 
     let div = await buscarDividendo(nomeDoFii)
-    cotacao = replaceAll(cotacao, ' ', '')
-    cotacao = cotacao.replace(',', '.')
-    div = div.replace(',', '.')
-
 
     
-    res.json(
-        { 
-            'fii': nomeDoFii,
-            'dividendo': div,
-            'cotacao': cotacao
-        }
-    )
+    res.json({ 'fii': nomeDoFii,'dividendo': div,'cotacao': cotacao});
 })
+
+
+
+
 
 async function buscarDividendo(fii){
     try{
@@ -40,13 +34,14 @@ async function buscarDividendo(fii){
         let dividendo = $('.carousel-cell').first().next().text()
         cotacao = $('.price').first().text()
 
-        //let valor = $('#quotation')
 
-        //console.log(dividendo)
         dividendo = dividendo.substring(67, 71)
+        dividendo = replaceAll(dividendo, ',', '.')
+
         cotacao = cotacao.substring(22, 50)
-        cotacao = cotacao.replace('\n ', '')
-        cotacao = cotacao.replace(' ', '')
+        cotacao = replaceAll(cotacao, '\n ', '')
+        cotacao = replaceAll(cotacao, ',', '.')        
+        cotacao = replaceAll(cotacao, ' ', '')
 
         
         console.log(`Dividendos ${fii}: R$ ${dividendo} - Cotação: ${cotacao} `)
@@ -63,14 +58,22 @@ function validarFii(nomeFii){
     nomeFii = nomeFii.substring(0,6)
     
     if(nomeFii.substring(4,6) == "11"){
-        
+        // Buscar Código
+
+        return nomeFii
     }else{
         return "erro"
     }
     
-    console.log(nomeFii)
-    return nomeFii
 }
+
+
+
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
+
+
 
 app.listen(port, (erro) =>{
     if(!erro){
