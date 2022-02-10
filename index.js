@@ -5,7 +5,7 @@ const cheerio = require('cheerio')
 
 const app = express()
 let cotacao = "";
-
+const port = process.env.PORT || 3000;
 
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
@@ -72,7 +72,7 @@ function validarFii(nomeFii){
     return nomeFii
 }
 
-app.listen(3000, (erro) =>{
+app.listen(port, (erro) =>{
     if(!erro){
         console.log("Server rodando na porta 3000")
     }else{
