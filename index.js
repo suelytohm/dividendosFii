@@ -2,13 +2,20 @@ const express = require('express')
 const request = require('request-promise')
 const cheerio = require('cheerio')
 
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+
+
 
 const app = express()
 const port = process.env.PORT || 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 let cotacao = "";
 
-app.get("/:fii", async (req, res) => {
+app.get("/fii/:fii", async (req, res) => {
 
     let nomeDoFii = req.params.fii
     nomeDoFii = nomeDoFii.toUpperCase();
@@ -18,6 +25,14 @@ app.get("/:fii", async (req, res) => {
 
 })
 
+app.get('/fiis', (req, res) =>{
+    execSQLQuery('SELECT * FROM fiis', res);
+})
+
+app.get('/fiis/:fii', (req, res) =>{
+    let nomeDoFii = req.params.fii
+    execSQLQuery("SELECT * FROM fiis where codigo like '" + nomeDoFii + "%'", res);
+})
 
 
 async function buscarDividendo(fii){
@@ -75,3 +90,36 @@ app.listen(port, (erro) =>{
         console.log(erro)
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+function execSQLQuery(sqlQry, res){
+    const connection = mysql.createConnection({
+      host     : 'sql10.freemysqlhosting.net',
+      port     : 3306,
+      user     : 'sql10450242',
+      password : 'uVxfyAa5ic',
+      database : 'sql10450242'
+    });
+  
+    connection.query(sqlQry, function(error, results, fields){
+        if(error) 
+          res.json(error);
+        else
+          res.json(results);
+        connection.end();
+        console.log('executou!');
+    });
+  }
+
+
