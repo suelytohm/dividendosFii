@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 let cotacao = "";
+let dy = "";
 
 app.get("/fii/:fii", async (req, res) => {
 
@@ -21,7 +22,7 @@ app.get("/fii/:fii", async (req, res) => {
     nomeDoFii = nomeDoFii.toUpperCase();
     let div = await buscarDividendo(nomeDoFii)
     
-    res.json({'fii': nomeDoFii,'dividendo': div,'cotacao': cotacao});
+    res.json({'fii': nomeDoFii,'dividendo': div,'cotacao': cotacao, 'dy': dy});
 
 })
 
@@ -43,10 +44,14 @@ async function buscarDividendo(fii){
         let $ = cheerio.load(response)
         let dividendo = $('.carousel-cell').first().next().text()
         cotacao = $('.price').first().text()
+        dy = $('.carousel-cell').first().next().next().text()
 
 
         dividendo = dividendo.substring(67, 71)
         dividendo = replaceAll(dividendo, ',', '.')
+
+        dy = dy.substring(61, 65);
+        dy = replaceAll(dy, ',', '.')
 
         cotacao = cotacao.substring(22, 50)
         cotacao = replaceAll(cotacao, '\n ', '')
@@ -54,7 +59,7 @@ async function buscarDividendo(fii){
         cotacao = replaceAll(cotacao, ' ', '')
 
         
-        console.log(`Dividendos ${fii}: R$ ${dividendo} - Cotação: ${cotacao} `)
+        console.log(`Dividendos ${fii}: R$ ${dividendo} - Cotação: ${cotacao} - DY: ${dy}`)
         return dividendo
     }catch(erro){
         return null;
