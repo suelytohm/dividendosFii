@@ -3,6 +3,6 @@ API simples que faz scrapping no site www.fundsexplorer.com, exibindo as princip
 Tais como cotação atual, último dividendo, Divdend Yeld, entre outros.
 
 Demo:
-1. https://dividendosfiis.herokuapp.com/visc11
-2. https://dividendosfiis.herokuapp.com/irdm11
-3. https://dividendosfiis.herokuapp.com/xplg11
+1. https://dividendosfiis.herokuapp.com/fii/visc11
+2. https://dividendosfiis.herokuapp.com/fii/irdm11
+3. https://dividendosfiis.herokuapp.com/fii/xplg11
