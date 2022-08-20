@@ -1,5 +1,5 @@
 # DividendosFii
-API simples que faz scrapping no site www.fundsexplorer.com, exibindo as principais informações sobre determinado fundo de investimento passado através da rota. 
+API que faz scrapping no site www.fundsexplorer.com, exibindo as principais informações sobre determinado fundo de investimento passado através da rota. 
 Tais como cotação atual, último dividendo, Divdend Yeld, entre outros.
 
 Demo:
